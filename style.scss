@@ -1,0 +1,613 @@
+// ===================================================================
+// Global SCSS Variables & Mixins
+// ===================================================================
+
+// Colors
+$colors: (
+  red: #c00404,
+  brown: #4E3629,
+  mgray: #98A4AE,
+  gray: #F0F2F3,
+  white: #FFFFFF,
+  darkgreen: #008672,
+  lightgreen: rgba(#008672, 12%),
+  verylightgreen: rgba(#008672, 4%),
+  extralightgreen: rgba(#008672, 0.5%),
+  blue: #007DA0,
+  darkblue: darken(#007DA0, 10%),
+  lightblue: rgba(#007DA0, 12%),
+  verylightblue: rgba(#007DA0, 4%),
+  extralightblue: rgba(#007DA0, 0.5%),
+  tgray: #434343,
+  yellow: #FFC72C,
+  mediumyellow: rgba(#FFC72C, 50%),
+  lightyellow: rgba(#FFC72C, 8%),
+);
+
+@function color($key) {
+  @return map-get($colors, $key);
+}
+
+// Typography
+$font-circular: Circular-Book, Arial, Helvetica, sans-serif;
+$font-minion: minion-pro, "Times New Roman", serif;
+
+// Layout
+$border-radius: 4px;
+$spacing: (
+  lg: 80px,
+  md: 40px,
+  sm: 24px,
+  xs: 16px,
+  xxs: 8px
+);
+
+@function space($key) {
+  @return map-get($spacing, $key);
+}
+
+// Mixins
+@mixin responsive($breakpoint) {
+
+  @if $breakpoint =="sm" {
+    @media (min-width: 600px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint =="md" {
+    @media (min-width: 900px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint =="lg" {
+    @media (min-width: 1100px) {
+      @content;
+    }
+  }
+}
+
+// ===================================================================
+// Information Pages
+// ===================================================================
+.info-pages main {
+  background-image: url("/_ingredients/extras/images/home.svg");
+  background-size: 1600px;
+  background-position: left 60px;
+}
+
+body:has(.not-found) {
+  background: color(white);
+  background-image: url("/icons/404_bg.svg");
+  background-position: 50% 72%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 800px;
+}
+
+.info {
+  &page {
+    padding: space(sm) space(sm);
+    margin: space(sm) auto;
+    gap: space(sm);
+    background: color(white);
+    display: flex;
+    flex-direction: column;
+
+    @include responsive("md") {
+      padding: space(md) space(md);
+      margin: space(md) auto;
+      gap: space(md);
+    }
+
+    a {
+
+      &:link,
+      &:visited {
+        color: color(darkgreen);
+        font-weight: bold;
+        text-decoration: underline;
+      }
+
+      &:hover,
+      &:focus {
+        color: color(tgray);
+      }
+
+      &:active {
+        color: black;
+      }
+
+      &.btn {
+        display: block;
+        text-decoration: none;
+        line-height: 16px;
+        padding: space(xs);
+        letter-spacing: 0.14px;
+        text-transform: uppercase;
+        border-radius: $border-radius;
+        text-align: center;
+        transition: 0.3s;
+        background: color(darkgreen);
+        color: color(white);
+        white-space: nowrap;
+        text-wrap: balance;
+
+        &:hover,
+        &:focus {
+          background: color(tgray);
+          color: color(white);
+
+        }
+
+        &:active {
+          background: black;
+        }
+      }
+    }
+
+    &.not-found {
+      max-width: 800px;
+      background: transparentize(color(white), 1);
+      gap: space(md);
+
+      @include responsive("sm") {
+        margin: 80px auto;
+      }
+
+      .info {
+        &__intro {
+          text-align: center;
+          line-height: 1;
+          font-family: $font-circular;
+          font-style: normal;
+          font-weight: bold;
+          font-size: clamp(space(sm), 5vw, space(md));
+          color: color(darkgreen);
+          text-wrap-style: balance;
+          text-transform: capitalize;
+
+          &::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: #7FD9CB;
+            margin: auto;
+            margin-top: space(md);
+            border-radius: 4px;
+          }
+        }
+
+        &-card {
+          padding: 0;
+          border: none;
+
+          @include responsive("sm") {
+            border: 1px solid color(lightgreen);
+            background: transparentize(color(white), 0.5);
+            border-width: 0 1px 1px 1px;
+            border-radius: 0 0 4px 4px;
+            padding: 0 space(md) space(md) space(md);
+          }
+
+          &__title {
+            text-transform: uppercase;
+            text-wrap-style: balance;
+            font-size: clamp(space(xs), 3vw, 20px);
+            line-height: 1;
+          }
+
+          &__actions {
+            display: grid;
+
+            @include responsive("sm") {
+              grid-template-columns: repeat(2, 1fr);
+              gap: space(xsm);
+            }
+          }
+        }
+      }
+    }
+
+    &.new-user {
+      background: lighten(color(red), 65%);
+      position: relative;
+
+      @include responsive("sm") {
+        margin-top: space(lg);
+        padding: space(lg) space(md) space(md) space(md);
+        border-top: 2px solid lighten(color(red), 50%);
+      }
+
+      .info {
+        &__intro {
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+          gap: space(xs);
+          margin: 0 auto;
+          padding: space(xxs) space(sm) space(xxs) space(xxs);
+          line-height: 1;
+          font-family: $font-circular;
+          font-style: normal;
+          font-size: 16px;
+          color: color(red);
+          text-align: center;
+          border: 2px solid lighten(color(red), 50%);
+          background: lighten(color(red), 55%);
+          border-radius: 50px;
+          width: 100%;
+
+          @include responsive("sm") {
+            position: absolute;
+            top: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: max-content;
+            font-size: 20px;
+          }
+
+          &::before {
+            content: url("/icons/user_red.svg");
+            height: 32px;
+            width: 32px;
+          }
+        }
+
+        &-card {
+          &__title {
+            color: color(red);
+          }
+
+          background: lighten(color(red), 61%);
+          border-color: lighten(color(red), 55%);
+
+          &__icon {
+            background: lighten(color(red), 60%);
+            border-color: lighten(color(red), 55%);
+          }
+
+          &__description {
+            border-color: lighten(color(red), 50%);
+          }
+
+          &__actions {
+            align-items: center;
+
+            .btn {
+              background: color(red);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__intro,
+  &__outro {
+    font-size: 22px;
+    font-style: italic;
+    font-family: $font-minion;
+
+    @include responsive("md") {
+      padding: 0 space(md);
+    }
+  }
+
+  &__row {
+    display: grid;
+    gap: space(sm);
+    grid-template-columns: 1fr;
+
+    &.col-2 {
+      @include responsive("md") {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    &.col-3 {
+      @include responsive("md") {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include responsive("lg") {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  &-card {
+    padding: space(sm);
+    border-radius: $border-radius;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: space(xs);
+    border: 1px solid color(lightgreen);
+    background: color(extralightgreen);
+
+    @include responsive("md") {
+      padding: space(md);
+      gap: space(sm);
+    }
+
+    &__icon {
+      width: 100px;
+      height: 100px;
+      background: lighten(color(gray), 3%);
+      border-radius: 50%;
+      border: 1px solid lighten(color(mgray), 20%);
+      object-fit: scale-down;
+      margin: 0 auto;
+    }
+
+    &__image {
+      width: 100%;
+      max-width: 260px;
+      margin: 0 auto;
+      height: auto;
+
+      @include responsive("sm") {
+        max-width: 400px;
+      }
+    }
+
+    &__title {
+      text-align: center;
+      color: color(darkgreen);
+      margin: 0;
+      font-weight: normal;
+    }
+
+    &__description,
+    p {
+      font-family: $font-minion;
+    }
+
+    &__description {
+      border-top: 1px solid color(lightgreen);
+      padding-top: space(sm);
+    }
+
+    &__actions {
+      display: flex;
+      flex-direction: column;
+      gap: space(xxs);
+      width: 100%;
+      text-align: center;
+    }
+
+    &__note {
+      font-size: 16px;
+      color: color(tgray);
+      font-style: italic;
+      font-family: $font-minion;
+      margin: 0;
+    }
+
+    &.standalone {
+      .info-card {
+        &__header {
+          display: flex;
+          align-items: center;
+          gap: space(sm);
+          flex-direction: column;
+
+          @include responsive("md") {
+            flex-direction: row;
+          }
+        }
+
+        &__icon {
+          width: 60px;
+          height: 60px;
+          object-fit: scale-down;
+          margin: 0 auto;
+        }
+
+        @include responsive("md") {
+          &__icon {
+            margin: 0;
+            height: 60px;
+            width: 60px;
+          }
+        }
+
+        &__title {
+          text-align: center;
+
+          @include responsive("md") {
+            text-align: left;
+          }
+        }
+
+        &__actions {
+          align-items: flex-start;
+          text-align: left;
+
+          &.center {
+            width: 100%;
+            align-items: center;
+
+            @include responsive("sm") {
+              width: max-content;
+            }
+          }
+        }
+      }
+    }
+
+    &.minimal {
+      padding: space(md) 0;
+
+      @include responsive("md") {
+        padding: space(md);
+      }
+
+      border: none;
+
+      .info-card {
+        &__title {
+          color: color(tgray);
+        }
+      }
+    }
+
+    &.padding {
+      padding: 0;
+
+      @include responsive("md") {
+        padding: 0 space(md);
+      }
+    }
+  }
+
+  &-group {
+    padding: space(sm);
+    border-radius: $border-radius;
+
+    @include responsive("md") {
+      padding: space(md);
+    }
+
+    &.green {
+      border: 1px solid color(lightgreen);
+      background: color(verylightgreen);
+
+      .info-group {
+        &__title {
+          color: color(darkgreen);
+          border-bottom: 1px solid color(lightgreen);
+        }
+
+        &__intro {
+          color: color(darkgreen);
+        }
+      }
+    }
+
+    &.blue {
+      border: 1px solid color(lightblue);
+      background: color(verylightblue);
+
+      .info-group {
+        &__title {
+          color: color(darkblue);
+          border-bottom: 1px solid color(lightblue);
+        }
+
+        &__intro {
+          color: color(blue);
+        }
+
+        &__list {
+          a {
+            color: color(blue);
+
+            &:hover,
+            &:focus {
+              color: color(tgray);
+            }
+
+            &:active {
+              color: black;
+            }
+          }
+        }
+      }
+    }
+
+    &.yellow {
+      border: 1px solid color(mediumyellow);
+      background: color(lightyellow);
+
+      .info-group {
+        &__title {
+          color: color(darkblue);
+          border-bottom: 1px solid color(lightblue);
+        }
+
+        &__intro {
+          color: color(blue);
+        }
+
+        &__list {
+          a {
+            color: color(blue);
+
+            &:hover,
+            &:focus {
+              color: color(tgray);
+            }
+
+            &:active {
+              color: black;
+            }
+          }
+        }
+
+        &__text {
+          font-family: $font-minion;
+          color: color(brown);
+
+          a {
+            color: color(brown);
+
+            &:hover,
+            &:focus {
+              color: color(tgray);
+            }
+
+            &:active {
+              color: black;
+            }
+          }
+        }
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: space(md);
+
+      @include responsive("md") {
+        grid-template-columns: calc(70% - space(md)) 30%;
+        display: grid;
+      }
+    }
+
+    &__title {
+      margin: 0;
+      padding-bottom: space(sm);
+      margin-bottom: space(sm);
+    }
+
+    &__intro {
+      font-size: 24px;
+      font-style: italic;
+      font-family: $font-minion;
+      margin-bottom: space(sm);
+    }
+
+    &__list {
+      padding: 0;
+      margin: 0;
+      color: color(tgray);
+      font-family: $font-circular;
+    }
+
+    &__image-container {
+      text-align: center;
+    }
+
+    &__image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      margin: auto;
+    }
+  }
+}
