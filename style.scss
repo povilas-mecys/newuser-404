@@ -79,7 +79,7 @@ $spacing: (
 
 body:has(.not-found) {
   background: color(white);
-  background-image: url("/icons/404_bg.svg");
+  background-image: url("icons/404_bg.svg");
   background-position: 50% 72%;
   background-repeat: no-repeat;
   background-attachment: fixed;
