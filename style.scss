@@ -250,7 +250,7 @@ body:has(.not-found) {
           }
 
           &::before {
-            content: url("/icons/user_red.svg");
+            content: url("icons/user_red.svg");
             height: 32px;
             width: 32px;
           }
