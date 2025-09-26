@@ -6,7 +6,7 @@
 
 body:has(.not-found) {
   background: #FFFFFF;
-  background-image: url("/icons/404_bg.svg");
+  background-image: url("icons/404_bg.svg");
   background-position: 50% 72%;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -160,7 +160,7 @@ body:has(.not-found) {
   }
 }
 .infopage.new-user .info__intro::before {
-  content: url("/icons/user_red.svg");
+  content: url("icons/user_red.svg");
   height: 32px;
   width: 32px;
 }
